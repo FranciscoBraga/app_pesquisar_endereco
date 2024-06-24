@@ -1,9 +1,9 @@
 
-#Pesquisar Endereço pelo CEP: Leia-me para Git
+# Pesquisar Endereço pelo CEP: 
 
 Este aplicativo web permite que os usuários pesquisem seus dados de endereço (bairro, complemento, rua, cidade e estado) inserindo seu CEP (código postal brasileiro). Ele utiliza a API ViaCEP (https://viacep.com.br/) para recuperar as informações.
 
-##Funcionalidades
+## Funcionalidades
 
 * Interface amigável com um campo de entrada claro para a entrada do CEP.
 * Exibição intuitiva dos detalhes do endereço obtido.
@@ -11,7 +11,7 @@ Este aplicativo web permite que os usuários pesquisem seus dados de endereço (
 * Tratamento de erros para CEPs inválidos.
 
 
-Como Funciona
+## Como Funciona
 
 O usuário insere seu CEP no campo de entrada com o cep.
 Quando o usuário perde o foco no campo de entrada (toca fora ou pressiona Tab), a função getCEP() é acionada.
