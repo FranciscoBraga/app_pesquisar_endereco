@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Endereço</title>
+    <style>
+        input{
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            display: block;
+        }
+        input:focus{
+            box-shadow: 0 0 0 0;
+            outline: 0;
+            border: 1px solid #858585;
+
+        }
+      /*   .hide{
+            display: none;
+        } */
+        #cep{
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 20px;
+            color: #ccc;
+        }
+        #cep:focus{
+            outline: 1px solid white;
+
+        }
+     
+    </style>
+    <script>
+        function getCEP(cep){
+
+            document.getElementById('bairro').value = ''
+            document.getElementById('complemento').value =''
+            document.getElementById('logradouro').value = ''
+            document.getElementById('localidade').value =''
+            document.getElementById('uf').value =''
+
+            let cepVerificado = cep.replace(/[^a-zA-Z0-9]/g,'')//retirando caracteres especiais
+            console.log(cepVerificado.length)
+            //(/\s/g,'')//retirando espaço
+           if(cepVerificado.length != 8){
+            document.getElementById('cep').value = 'O Cep está errado'
+            return
+           }
+
+            let endereco = new XMLHttpRequest()
+
+             endereco.open('GET','https://viacep.com.br/ws/'+cepVerificado+'/json/')
+
+             endereco.onreadystatechange = () =>{   
+                
+                if(endereco.readyState == 4 && endereco.status == 200){
+                   console.log(endereco.responseText)
+
+                    let jsonEndereco   = JSON.parse(endereco.responseText)
+                     document.getElementById('bairro').value = jsonEndereco.bairro
+                     document.getElementById('complemento').value = jsonEndereco.complemento
+                     document.getElementById('logradouro').value = jsonEndereco.logradouro
+                     document.getElementById('localidade').value = jsonEndereco.localidade
+                     document.getElementById('uf').value = jsonEndereco.uf
+             }
+           
+        }
+        endereco.send() //deve ficar fora
+    }
+    </script>
+</head>
+<body>
+     <h1>Pesquise Endereço pelo CEP</h1>
+
+    <input  id='cep' type="text" placeholder="Digite seu cep" onblur="getCEP(this.value)">
+    <hr>
+
+    <input class = 'hide' type="text" readonly name="logradouro" id="logradouro" placeholder="logradouro">
+    <input class = 'hide' type="text" readonly name="complemento" id="complemento" placeholder="complemento">
+    <input class = 'hide' type="text" readonly name="bairro" id="bairro" placeholder="bairro">
+    <input class = 'hide' type="text" readonly name="localidade" id="localidade" placeholder="localidade">
+    <input class = 'hide' type="text" readonly name="uf" id="uf" placeholder="uf">
+
+</body>
+</html>
